@@ -1,11 +1,11 @@
-package br.com.alura.gerenciador.servlet;
+package br.com.alura.gerenciador.modelo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Banco {
-	
+	private static List<Usuario> listaUsuario = new ArrayList<>();
 	private static List<Empresa> lista = new ArrayList<>();
 	private static Integer chaveSequencial = 1;
 	
@@ -18,6 +18,18 @@ public class Banco {
 		empresa2.setNome("Caelum");
 		lista.add(empresa);
 		lista.add(empresa2);
+		
+		Usuario user1 = new Usuario();
+		user1.setLogin("heron");
+		user1.setSenha("12345");
+		Usuario user2 = new Usuario();
+		user2.setLogin("admin");
+		user2.setSenha("123456");
+		
+		listaUsuario.add(user1);
+		listaUsuario.add(user2);
+		
+		
 	}
 
 	public void adiciona(Empresa empresa) {
@@ -46,6 +58,15 @@ public class Banco {
 		for (Empresa empresa : lista) {
 			if(empresa.getId() == id) {
 				return empresa;
+			}
+		}
+		return null;
+	}
+
+	public Usuario verificaUsuario(String login, String senha) {
+		for(Usuario usuario : listaUsuario) {
+			if(usuario.ehIgual(login, senha)) {
+				return usuario;
 			}
 		}
 		return null;
